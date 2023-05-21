@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Autosuggest from "react-autosuggest";
 import axios from "axios";
+import "./App.css";
 
 const getSuggestionValue = (suggestion) => suggestion.name;
 
@@ -70,7 +71,7 @@ const BuildForm = () => {
     setSuggestions([]);
   };
 
-  const renderSuggestion = (suggestion) => <div>{suggestion.name}</div>;
+  const renderSuggestion = (suggestion) => <div className="autosuggest_suggestions-container">{suggestion.name}</div>;
   // MotherBoards, Processors, VideoCards, RAMs, Drives
 
   const inputPropsProcessor = {
@@ -88,7 +89,7 @@ const BuildForm = () => {
   const inputPropsDrives = { name: "drives", value: formData.drives, onChange: handleInputChange, placeholder: "Select or enter a Drive", };
 
 
-  return ( <form>
+  return ( <form className="maindiv">
     <div>
       <label htmlFor="processor">Processor</label>
       <div style={{ position: "relative" }}>
@@ -198,8 +199,7 @@ const BuildForm = () => {
     <button onClick={async (event) => {
       event.preventDefault();
       await checkComplete(formData);
-    }}>Log</button>
-    <button type="submit">Create Build</button>
+    }}>Create Build</button>
     {errors.map((error) => <p>{error}</p>)}
   </form> ); };
 
