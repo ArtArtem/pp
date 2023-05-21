@@ -19,6 +19,28 @@ const BuildForm = () => {
   });
 
   const [suggestions, setSuggestions] = useState([]);
+  const [errors, setErrors] = useState([]);
+
+  const checkComplete = async (formData) => {
+    // parts: MotherBoards, Processors, VideoCards, RAMs, Drives
+    const procMother = await axios.get(
+      `http://localhost:4000/check?id1=${formData.processorId}&part1=Processors&id2=${formData.motherboardId}&part2=MotherBoards`
+    );
+    const procRam = await axios.get(
+      `http://localhost:4000/check?id1=${formData.processorId}&part1=Processors&id2=${formData.ramsId}&part2=RAMs`
+    );
+    const videoMother = await axios.get(
+      `http://localhost:4000/check?id1=${formData.graphicsCardId}&part1=VideoCards&id2=${formData.motherboardId}&part2=MotherBoards`
+    );
+    const driverMother = await axios.get(
+      `http://localhost:4000/check?id1=${formData.drivesId}&part1=Drives&id2=${formData.motherboardId}&part2=MotherBoards`
+    );
+    if (!procMother.data) setErrors([...errors, 'Процессор и материнская плата несовместимы']);
+    if (!procRam.data) setErrors([...errors, 'Процессор и оперативная память несовместимы']);
+    if (!videoMother.data) setErrors([...errors, 'Видеокарта и материнская плата несовместимы']);
+    if (!driverMother.data) setErrors([...errors, 'Накопитель данных и материнская плата несовместимы']);
+    if (procMother.data && procRam.data && videoMother.data && driverMother.data) setErrors([...errors, 'Сборка сохранена']);
+  }
 
   const handleInputChange = (event) => {
     setFormData({
@@ -34,15 +56,14 @@ const BuildForm = () => {
       [name]: suggestion.name,
       [`${name}Id`]: suggestion.id,
     });
+    setErrors([]);
   };
 
   const handleSuggestionsFetchRequested = async ({value, name}) => {
     const { data } = await axios.get(
       `http://localhost:4000?part=${name}&input=${value}`
     );
-    console.log(data);
     setSuggestions(data);
-
   };
 
   const handleSuggestionsClearRequested = () => {
@@ -174,11 +195,12 @@ const BuildForm = () => {
         />
       </div>
     </div>
-    <button onClick={(event)=> {
+    <button onClick={async (event) => {
       event.preventDefault();
-      console.log(formData);
+      await checkComplete(formData);
     }}>Log</button>
     <button type="submit">Create Build</button>
+    {errors.map((error) => <p>{error}</p>)}
   </form> ); };
 
 export default function App() {
