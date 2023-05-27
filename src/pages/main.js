@@ -17,6 +17,7 @@ const BuildForm = () => {
     graphicsCardId: "",
     ramsId: "",
     drivesId: "",
+    description: "",
   });
 
   const [suggestions, setSuggestions] = useState([]);
@@ -55,6 +56,7 @@ const BuildForm = () => {
           videoCardId: formData.graphicsCardId,
           ramId: formData.ramsId,
           driveId: formData.drivesId,
+          description: formData.description,
         }
       );
       setErrors([...errors, 'Сборка сохранена']);
@@ -212,6 +214,15 @@ const BuildForm = () => {
             handleSuggestionSelected(e, { suggestion, name: "drives" })
           }
         />
+      </div>
+    </div>
+    <div>
+      <label htmlFor="description">Description</label>
+      <div style={{ position: "relative" }}>
+        <input onChange={(value)=>setFormData({
+          ...formData,
+          description: value.target.value,
+        })}/>
       </div>
     </div>
     <button onClick={async (event) => {

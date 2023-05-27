@@ -37,9 +37,17 @@ export const COLUMNS = [
     Header: "drive",
     Footer: "drive",
     accessor: "drive",
-
   },
-
+  {
+    Header: "description",
+    Footer: "description",
+    accessor: "description",
+  },
+  {
+    Header: "likes",
+    Footer: "likes",
+    accessor: "likes",
+  },
 ];
 export const GROUPED_COLUMNS = [
   {
@@ -75,6 +83,16 @@ export const GROUPED_COLUMNS = [
         Header: "drive",
         Footer: "drive",
         accessor: "drive",
+      },
+      {
+        Header: "description",
+        Footer: "description",
+        accessor: "description",
+      },
+      {
+        Header: "likes",
+        Footer: "likes",
+        accessor: "likes",
       },
     ],
   },
