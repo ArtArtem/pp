@@ -38,3 +38,21 @@ button:hover { background-color: #0062cc; }
 .maindiv {
   padding-left: 35%;
 }
+
+select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 310px;
+  margin-bottom: 10px;
+  box-shadow: none; /* убираем тень */
+  background-color: #fff; /* цвет фона */
+  color: #000000; /* цвет текста */
+  appearance: none; /* убираем стрелку селекта */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+select:hover, select:focus {
+  border-color: #0077cc; /* изменение цвета рамки при наведении курсора или фокусе */
+}

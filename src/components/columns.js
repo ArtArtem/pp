@@ -48,6 +48,11 @@ export const COLUMNS = [
     Footer: "likes",
     accessor: "likes",
   },
+  {
+    Header: "Type",
+    Footer: "type",
+    accessor: "type",
+  },
 ];
 export const GROUPED_COLUMNS = [
   {
@@ -93,6 +98,11 @@ export const GROUPED_COLUMNS = [
         Header: "likes",
         Footer: "likes",
         accessor: "likes",
+      },
+      {
+        Header: "Type",
+        Footer: "type",
+        accessor: "type",
       },
     ],
   },

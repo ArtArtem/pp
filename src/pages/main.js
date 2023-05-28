@@ -6,6 +6,7 @@ import "../App.css";
 const getSuggestionValue = (suggestion) => suggestion.name;
 
 const BuildForm = () => {
+
   const [formData, setFormData] = useState({
     processor: "",
     motherboard: "",
@@ -18,6 +19,7 @@ const BuildForm = () => {
     ramsId: "",
     drivesId: "",
     description: "",
+    type: "Gamers",
   });
 
   const [suggestions, setSuggestions] = useState([]);
@@ -57,6 +59,7 @@ const BuildForm = () => {
           ramId: formData.ramsId,
           driveId: formData.drivesId,
           description: formData.description,
+          type: formData.type,
         }
       );
       setErrors([...errors, 'Сборка сохранена']);
@@ -214,6 +217,19 @@ const BuildForm = () => {
             handleSuggestionSelected(e, { suggestion, name: "drives" })
           }
         />
+      </div>
+    </div>
+    <div>
+      <label htmlFor="type">Type</label>
+      <div>
+        <select onChange={(value)=>setFormData({
+          ...formData,
+          type: value.target.value,
+        })}>
+          <option value="gamers">Gamers</option>
+          <option value="office">Office</option>
+          <option value="home">Home</option>
+        </select>
       </div>
     </div>
     <div>

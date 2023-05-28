@@ -2,6 +2,7 @@ import React, {useMemo, useState} from "react";
 import { useTable, useSortBy } from "react-table/dist/react-table.development";
 import { GROUPED_COLUMNS } from "./columns";
 import "./table.css";
+import axios from "axios";
 
 const SortingTable = (saves) => {
   const columns = useMemo(() => GROUPED_COLUMNS, []);
@@ -54,11 +55,17 @@ const SortingTable = (saves) => {
               {row.cells.map((cell) => {
                 if (cell.column.id === "likes") {
                   return <button disabled={liked.includes(cell.row.cells[0].value)}
-                                 onClick={() => {
+                                 onClick={async () => {
                                    console.log('id', cell.row.cells[0].value);
                                    setLiked([...liked, cell.row.cells[0].value]);
                                    console.log(cell.value);
-                                 }}>{cell.value + (liked.includes(cell.row.cells[0].value) && 1)} likes</button>;
+                                   await axios.post(
+                                     `http://localhost:4000/like`,
+                                     {
+                                       id: cell.row.cells[0].value,
+                                     }
+                                   );
+                                 }}>{cell.value} likes</button>;
                 }
                 return (
                   <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
